@@ -28,11 +28,10 @@ CREATE TABLE `admin` (
   `username` varchar(40) NOT NULL,
   `pass` varchar(100) NOT NULL,
   `isFullAdmin` int(11) NOT NULL,
-  `token` text DEFAULT NULL,
+  `token` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `telNumber` (`telNumber`),
-  UNIQUE KEY `token` (`token`) USING HASH
+  UNIQUE KEY `telNumber` (`telNumber`)
 ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 /*Data for the table `admin` */
