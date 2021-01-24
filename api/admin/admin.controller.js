@@ -16,6 +16,8 @@ const {
   setProductImage,
   productList,
   setProduct,
+  checkUserCode,
+  getUserLocation,
 } = require("./admin.service");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
@@ -818,6 +820,78 @@ module.exports = {
               success: true,
               message: "Амжилттай өөрчиллөө.",
             });
+          }
+        });
+      } else {
+        return res.json({
+          success: false,
+          message: "Эрх байхгүй байна!",
+        });
+      }
+    });
+  },
+  userLastLocation: (req, res) => {
+    const token = req.get("authorization");
+    const body = req.body;
+    if (!token) {
+      return res.json({
+        success: false,
+        message: "Нэвтрэх шаардлагатай!",
+      });
+    }
+    if (
+      !body.id ||
+      !Number.isInteger(body.id) ||
+      !body.code ||
+      body.code == ""
+    ) {
+      return res.json({
+        success: false,
+        message: "Өгөгдөл буруу байна. Дахин оролдоно уу",
+      });
+    }
+    getUserByToken(token, (err, results) => {
+      if (err) {
+        console.log(err);
+      }
+      if (!results) {
+        return res.json({
+          success: false,
+          message: "Нэвтрэх шаардлагатай!",
+        });
+      }
+      const permission = results.isFullAdmin;
+      if (permission == 1) {
+        checkUserCode(body.id, (err, results) => {
+          if (err) {
+            console.log(err);
+            return res.json({
+              success: false,
+              message: err,
+            });
+          } else {
+            const result = compareSync(body.code, results.code);
+            if (result) {
+              getUserLocation(body.id, (err, results) => {
+                if (err) {
+                  console.log(err);
+                  return res.json({
+                    success: false,
+                    message: err,
+                  });
+                } else {
+                  return res.json({
+                    success: true,
+                    data: results,
+                  });
+                }
+              });
+            } else {
+              return res.json({
+                success: false,
+                message: "Нууц үг буруу байна",
+              });
+            }
           }
         });
       } else {
