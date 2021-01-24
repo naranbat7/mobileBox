@@ -1,4 +1,12 @@
-const { addUser, setUserByToken, getUserByEmail } = require("./user.service");
+const {
+  addUser,
+  setUserByToken,
+  getUserByEmail,
+  getUserByToken,
+  getProductListMini,
+  getProductList,
+  getChooseList,
+} = require("./user.service");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 
@@ -112,6 +120,133 @@ module.exports = {
           message: "И-мэйл эсвэл нууц үг буруу байна.",
         });
       }
+    });
+  },
+  productListMini: (req, res) => {
+    const token = req.get("authorization");
+    if (!token) {
+      return res.json({
+        success: false,
+        message: "Нэвтрэх шаардлагатай!",
+      });
+    }
+    getUserByToken(token, (err, results) => {
+      if (err) console.log(err);
+      if (!results) {
+        return res.json({
+          success: false,
+          message: "Нэвтрэх шаардлагатай!",
+        });
+      }
+      getProductListMini((err, results) => {
+        if (err) {
+          return res.json({
+            success: false,
+            message: "Алдаа гарлаа: " + err,
+          });
+        } else {
+          results = results.map((item, idx) => {
+            return {
+              id: item.id,
+              imgLink:
+                req.protocol +
+                "://" +
+                req.hostname +
+                ":8080" +
+                "/images/" +
+                item.imgLink,
+              name: item.name,
+              total: item.total,
+              price: item.price,
+              description: item.description,
+              createdDate: item.createdDate,
+            };
+          });
+          return res.json({
+            success: true,
+            data: results,
+          });
+        }
+      });
+    });
+  },
+  productList: (req, res) => {
+    const token = req.get("authorization");
+    if (!token) {
+      return res.json({
+        success: false,
+        message: "Нэвтрэх шаардлагатай!",
+      });
+    }
+    getUserByToken(token, (err, results) => {
+      if (err) console.log(err);
+      if (!results) {
+        return res.json({
+          success: false,
+          message: "Нэвтрэх шаардлагатай!",
+        });
+      }
+      getProductList((err, results) => {
+        if (err) {
+          return res.json({
+            success: false,
+            message: "Алдаа гарлаа: " + err,
+          });
+        } else {
+          results = results.map((item, idx) => {
+            return {
+              id: item.id,
+              imgLink:
+                req.protocol +
+                "://" +
+                req.hostname +
+                ":8080" +
+                "/images/" +
+                item.imgLink,
+              name: item.name,
+              total: item.total,
+              price: item.price,
+              description: item.description,
+              createdDate: item.createdDate,
+            };
+          });
+          return res.json({
+            success: true,
+            data: results,
+          });
+        }
+      });
+    });
+  },
+  chooseList: (req, res) => {
+    const token = req.get("authorization");
+    if (!token) {
+      return res.json({
+        success: false,
+        message: "Нэвтрэх шаардлагатай!",
+      });
+    }
+    getUserByToken(token, (err, results) => {
+      if (err) console.log(err);
+      if (!results) {
+        return res.json({
+          success: false,
+          message: "Нэвтрэх шаардлагатай!",
+        });
+      }
+      getChooseList((err, results) => {
+        if (err) {
+          return res.json({
+            success: false,
+            message: "Алдаа гарлаа: " + err,
+          });
+        } else {
+          return res.json({
+            success: true,
+            data: results,
+          });
+        }
+      });
     });
   },
 };

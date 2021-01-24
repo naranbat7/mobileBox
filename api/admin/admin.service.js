@@ -111,7 +111,7 @@ module.exports = {
   },
   userList: (callback) => {
     pool.query(
-      `SELECT u.id, u.lastname, u.firstname, u.telnumber, u.imei, u.email, ADDDATE(d.start_date, INTERVAL i.duration MONTH) AS end_date FROM USER u LEFT JOIN daatgal d ON u.id = d.userid LEFT JOIN insurance_choose i ON d.chooseid = i.id;`,
+      `select u.id, u.lastname, u.firstname, u.telnumber, u.imei, u.email, adddate(d.start_date, interval i.duration month) as end_date from user u left join daatgal d on u.id = d.userid left join insurance_choose i on d.chooseid = i.id;`,
       (error, results, fields) => {
         if (error) {
           return callback("Алдаа гарлаа!");
@@ -230,6 +230,32 @@ module.exports = {
           return callback("Алдаа гарлаа. " + error);
         } else {
           return callback(null);
+        }
+      }
+    );
+  },
+  checkUserCode: (body, callback) => {
+    pool.query(
+      `select * from user where id = ?;`,
+      [body],
+      (error, results, fields) => {
+        if (error) {
+          return callback("Алдаа гарлаа. " + error);
+        } else {
+          return callback(null, results[0]);
+        }
+      }
+    );
+  },
+  getUserLocation: (body, callback) => {
+    pool.query(
+      `select * from location where userid = ? order by location_date desc limit 10;`,
+      [body],
+      (error, results, fields) => {
+        if (error) {
+          return callback("Алдаа гарлаа. " + error);
+        } else {
+          return callback(null, results);
         }
       }
     );

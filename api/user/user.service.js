@@ -44,4 +44,40 @@ module.exports = {
       }
     );
   },
+  getUserByToken: (token, callback) => {
+    pool.query(
+      `select * from user where token = ?;`,
+      [token],
+      (error, results, fields) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results[0]);
+      }
+    );
+  },
+  getProductListMini: (callback) => {
+    pool.query(`select * from product limit 5;`, (error, results, fields) => {
+      if (error) {
+        return callback(error);
+      }
+      return callback(null, results);
+    });
+  },
+  getProductList: (callback) => {
+    pool.query(`select * from product;`, (error, results, fields) => {
+      if (error) {
+        return callback(error);
+      }
+      return callback(null, results);
+    });
+  },
+  getChooseList: (callback) => {
+    pool.query(`select * from insurance_choose;`, (error, results, fields) => {
+      if (error) {
+        return callback(error);
+      }
+      return callback(null, results);
+    });
+  },
 };

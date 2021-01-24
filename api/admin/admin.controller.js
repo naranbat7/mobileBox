@@ -20,6 +20,7 @@ const {
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 const fs = require("fs");
+const { hostname } = require("os");
 
 const numberRegex = /[7-9][0-9]{7}/g;
 const emailRegex = /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -740,6 +741,23 @@ module.exports = {
               message: err,
             });
           } else {
+            results = results.map((item, idx) => {
+              return {
+                id: item.id,
+                imgLink:
+                  req.protocol +
+                  "://" +
+                  req.hostname +
+                  ":8080" +
+                  "/images/" +
+                  item.imgLink,
+                name: item.name,
+                total: item.total,
+                price: item.price,
+                description: item.description,
+                createdDate: item.createdDate,
+              };
+            });
             return res.json({
               success: true,
               data: results,
