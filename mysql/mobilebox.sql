@@ -37,7 +37,7 @@ CREATE TABLE `admin` (
 /*Data for the table `admin` */
 
 insert  into `admin`(`id`,`name`,`telNumber`,`imgLink`,`username`,`pass`,`isFullAdmin`,`token`) values 
-(53,'admin2',NULL,NULL,'admin2','$2b$10$94zdZGhQQb6XfNd9fgYBOurmj5jWY.Shia8NHly.5ETqWIToT8zfG',1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMiIsImlkIjo1MywiaWF0IjoxNjExMjczMjQ5LCJleHAiOjE2MTEyODQwNDl9.nU_t4sIBVELrGTtnWz7BqDqhB3PennAyCz-7Xl-GSjU');
+(53,'admin2',NULL,NULL,'admin2','$2b$10$94zdZGhQQb6XfNd9fgYBOurmj5jWY.Shia8NHly.5ETqWIToT8zfG',1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMiIsImlkIjo1MywiaWF0IjoxNjExNDcyNzQ4LCJleHAiOjE2MTE0ODM1NDh9.rK13aZSBUr1uuAdCGVlGiG1lp851r2SdgCHzE-cb684');
 
 /*Table structure for table `daatgal` */
 
@@ -152,13 +152,15 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `telnumber` (`telnumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
 
 insert  into `user`(`id`,`lastname`,`firstname`,`email`,`telnumber`,`pass`,`created_date`,`token`,`code`,`imei`) values 
-(1,'user2','user1','user1@gmail.com','88921834','$2b$10$/Sjsxx7YKGXv8EYHe01z.eosplS0h/YbafiaiCHC6UpDt92An2uVu','2021-01-21 20:41:31','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQGdtYWlsLmNvbSIsImlkIjoxLCJ0ZWxudW1iZXIiOiI4ODkyMTgzNCIsImlhdCI6MTYxMTI3MzIxMn0.bX-X9ZvycMK9nhQIriXkM5v1TVyuym65gZpL8UC_cww',NULL,NULL),
-(6,'user2','user2','user2@gmail.com','88921838','$2b$10$nc.NeTF.4mlqZzQX/PU0j.XMyJYjm.Z6WeldrPDBodg5ZCuniUeVK','2021-01-22 00:07:10',NULL,NULL,NULL);
+(1,'user2','user1','user1@gmail.com','88921834','$2b$10$/Sjsxx7YKGXv8EYHe01z.eosplS0h/YbafiaiCHC6UpDt92An2uVu','2021-01-21 20:41:31','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQGdtYWlsLmNvbSIsImlkIjoxLCJ0ZWxudW1iZXIiOiI4ODkyMTgzNCIsImlhdCI6MTYxMTI3MzIxMn0.bX-X9ZvycMK9nhQIriXkM5v1TVyuym65gZpL8UC_cww','$2b$10$yyr0iYZ9MWkAWAlVTR4NTuMxzsQi4a5dvW6ZYOivW1aXnuuM7TuLC',NULL),
+(6,'user2','user2','user2@gmail.com','88921838','$2b$10$nc.NeTF.4mlqZzQX/PU0j.XMyJYjm.Z6WeldrPDBodg5ZCuniUeVK','2021-01-22 00:07:10',NULL,NULL,NULL),
+(7,'user2','user2','user@gmail.com','88921835','$2b$10$YG/KqNK/DBLFmoi69Hxer.dC0at4wnouFm.jd42uNHoNugwsTaDRW','2021-01-23 02:18:15',NULL,NULL,NULL),
+(10,'user3','user3','user3@gmail.com','88921833','$2b$10$yyr0iYZ9MWkAWAlVTR4NTuMxzsQi4a5dvW6ZYOivW1aXnuuM7TuLC','2021-01-23 02:18:39','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIzQGdtYWlsLmNvbSIsImlkIjoxMCwidGVsbnVtYmVyIjoiODg5MjE4MzMiLCJpYXQiOjE2MTEzOTQwMTN9.YkXk6aztfBd4AN-OaOMazMcQiTvMtrr-_4v50vKQoQo',NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

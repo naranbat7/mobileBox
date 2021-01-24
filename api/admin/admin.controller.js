@@ -368,28 +368,20 @@ module.exports = {
           message: "Нэвтрэх шаардлагатай!",
         });
       }
-      const permission = results.isFullAdmin;
-      if (permission == 1) {
-        userList((err, results) => {
-          if (err) {
-            console.log(err);
-            return res.json({
-              success: false,
-              message: err,
-            });
-          } else {
-            return res.json({
-              success: true,
-              data: results,
-            });
-          }
-        });
-      } else {
-        return res.json({
-          success: false,
-          message: "Эрх байхгүй байна!",
-        });
-      }
+      userList((err, results) => {
+        if (err) {
+          console.log(err);
+          return res.json({
+            success: false,
+            message: err,
+          });
+        } else {
+          return res.json({
+            success: true,
+            data: results,
+          });
+        }
+      });
     });
   },
   deleteUser: (req, res) => {
