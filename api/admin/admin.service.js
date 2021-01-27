@@ -122,11 +122,7 @@ module.exports = {
   },
   deleteUser: (id, callback) => {
     pool.query(
-      `delete from daatgal_purchase_tries where user_id = ?;
-       delete from daatgal where userid = ?;
-       delete from location where userid = ?;
-       delete from product_purchase where userid = ?;
-       delete from user where id = ?;`,
+      `delete from daatgal_purchase_tries where user_id = ?; delete from daatgal where userid = ?; delete from location where userid = ?; delete from product_purchase where userid = ?; delete from user where id = ?;`,
       [id, id, id, id, id],
       (error, results, fields) => {
         if (error) {
