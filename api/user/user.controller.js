@@ -256,7 +256,7 @@ module.exports = {
           });
         } else {
           if (
-            !results2.end_date ||
+            results2.end_date == undefined ||
             moment(results2.end_date).isBefore(
               moment().format("YYYY-MM-DD hh:mm:ss")
             )
