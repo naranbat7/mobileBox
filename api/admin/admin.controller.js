@@ -25,6 +25,7 @@ const {
 const { sendMail, setCode } = require("../user/user.service");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
+const random = require("random");
 const fs = require("fs");
 
 const numberRegex = /[7-9][0-9]{7}/g;
