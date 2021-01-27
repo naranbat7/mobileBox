@@ -169,7 +169,7 @@ module.exports = {
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
-      from: '"Mobile Box " <mr.zipcy@gmail.com>', // sender address
+      from: '"Mobile Box " <mobileboxmn@gmail.com>', // sender address
       to: email, // list of receivers
       subject: "Mobile Box: Нууц код", // Subject line
       text: "Нууц код: ", // plain text body
