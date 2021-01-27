@@ -255,8 +255,9 @@ module.exports = {
             message: "Алдаа гарлаа: " + err,
           });
         } else {
+          const endDate = results2.end_date || "1970/01/01 00:00:00";
+          console.log("end date: ", endDate);
           if (
-            results2.end_date == undefined ||
             moment(results2.end_date).isBefore(
               moment().format("YYYY-MM-DD hh:mm:ss")
             )
