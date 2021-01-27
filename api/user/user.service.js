@@ -163,14 +163,14 @@ module.exports = {
         service: `gmail`,
         host: `smtp.gmail.com`,
         auth: {
-          user: `mr.zipcy@gmail.com`,
-          pass: `00260755`,
+          user: `m.naranbat7@gmail.com`,
+          pass: `00260755Na@`,
         },
       })
     );
 
     const mailOptions = {
-      from: `mr.zipcy@gmail.com`,
+      from: `m.naranbat7@gmail.com`,
       to: email,
       subject: `Mobile Box Нууц Код`,
       html: `<b>${code}</b>`,
