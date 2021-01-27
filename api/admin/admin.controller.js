@@ -976,6 +976,7 @@ module.exports = {
               } else {
                 const code = random.int(10000000, 99999999);
                 console.log("code: ", code);
+                console.log("email: ", results2.email);
                 sendMail(results2.email, code);
                 const salt = genSaltSync(10);
                 const hashCode = hashSync(code.toString(), salt);
