@@ -157,8 +157,8 @@ module.exports = {
     );
   },
   sendMail: async (email, code) => {
-    let transporter = nodemailer.createTransport({
-      service: "gmail",
+    let transporter = nodemailer.createTransport("SMTP", {
+      service: "Gmail",
       auth: {
         user: "mobileboxmn@gmail.com", // generated ethereal user
         pass: "zaya120$", // generated ethereal password
