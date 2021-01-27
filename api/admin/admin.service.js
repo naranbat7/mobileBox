@@ -280,4 +280,16 @@ module.exports = {
       }
     );
   },
+  getUserById: (id, callback) => {
+    pool.query(
+      `select * from user where id = ?;`,
+      [id],
+      (error, results, fields) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null, results);
+      }
+    );
+  },
 };

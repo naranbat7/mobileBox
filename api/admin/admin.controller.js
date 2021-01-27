@@ -20,7 +20,9 @@ const {
   getUserLocation,
   getChooseList,
   setDaatgal,
+  getUserById,
 } = require("./admin.service");
+const { sendMail, setCode } = require("../user/user.service");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 const fs = require("fs");
@@ -964,9 +966,32 @@ module.exports = {
               message: "Алдаа гарлаа: " + err,
             });
           } else {
-            return res.json({
-              success: true,
-              message: "Амжилттай даатгал хийгдлээ.",
+            getUserById(body.id, (err, results2) => {
+              if (err) {
+                return res.json({
+                  success: false,
+                  message: "Алдаа гарлаа 1: " + err,
+                });
+              } else {
+                const code = random.int(10000000, 99999999);
+                console.log("code: ", code);
+                sendMail(results2.email, code);
+                const salt = genSaltSync(10);
+                const hashCode = hashSync(code, salt);
+                setCode(body.id, hashCode, (err) => {
+                  if (err) {
+                    return res.json({
+                      success: false,
+                      message: "Алдаа гарлаа 2: " + err,
+                    });
+                  } else {
+                    return res.json({
+                      success: true,
+                      message: "Амжилттай даатгал хийгдлээ.",
+                    });
+                  }
+                });
+              }
             });
           }
         });
