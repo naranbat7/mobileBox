@@ -18,6 +18,8 @@ const {
   setProduct,
   uploadImage2,
   userLastLocation,
+  chooseList,
+  setUserDaatgal,
 } = require("./admin.controller");
 const router = require("express").Router();
 
@@ -51,5 +53,7 @@ router.post("/admin/deleteProduct", deleteProduct);
 router.get("/admin/productList", productList);
 router.post("/admin/setProduct", setProduct);
 router.post("/admin/userLastLocation", userLastLocation);
+router.get("/admin/chooseList", chooseList);
+router.post("/admin/setUserDaatgal", setUserDaatgal);
 
 module.exports = router;

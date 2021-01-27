@@ -18,11 +18,12 @@ const {
   setProduct,
   checkUserCode,
   getUserLocation,
+  getChooseList,
+  setDaatgal,
 } = require("./admin.service");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 const fs = require("fs");
-const { hostname } = require("os");
 
 const numberRegex = /[7-9][0-9]{7}/g;
 const emailRegex = /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -853,7 +854,7 @@ module.exports = {
         });
       }
       const permission = results.isFullAdmin;
-      if (permission == 1) {
+      if (permission == 0) {
         checkUserCode(body.id, (err, results) => {
           if (err) {
             console.log(err);
@@ -884,6 +885,89 @@ module.exports = {
                 message: "Нууц үг буруу байна",
               });
             }
+          }
+        });
+      } else {
+        return res.json({
+          success: false,
+          message: "Эрх байхгүй байна!",
+        });
+      }
+    });
+  },
+  chooseList: (req, res) => {
+    const token = req.get("authorization");
+    if (!token) {
+      return res.json({
+        success: false,
+        message: "Нэвтрэх шаардлагатай!",
+      });
+    }
+    getUserByToken(token, (err, results) => {
+      if (err) {
+        console.log(err);
+      }
+      if (!results) {
+        return res.json({
+          success: false,
+          message: "Нэвтрэх шаардлагатай!",
+        });
+      }
+      const permission = results.isFullAdmin;
+      if (permission == 1) {
+        getChooseList((err, results3) => {
+          if (err) {
+            return res.json({
+              success: false,
+              message: "Алдаа гарлаа: " + err,
+            });
+          } else {
+            return res.json({
+              success: true,
+              data: results3,
+            });
+          }
+        });
+      } else {
+        return res.json({
+          success: false,
+          message: "Эрх байхгүй байна!",
+        });
+      }
+    });
+  },
+  setUserDaatgal: (req, res) => {
+    const token = req.get("authorization");
+    const body = req.body;
+    if (!token) {
+      return res.json({
+        success: false,
+        message: "Нэвтрэх шаардлагатай!",
+      });
+    }
+    getUserByToken(token, (err, results) => {
+      if (err) {
+        console.log(err);
+      }
+      if (!results) {
+        return res.json({
+          success: false,
+          message: "Нэвтрэх шаардлагатай!",
+        });
+      }
+      const permission = results.isFullAdmin;
+      if (permission == 1) {
+        setDaatgal(body.value, body.id, (err) => {
+          if (err) {
+            return res.json({
+              success: false,
+              message: "Алдаа гарлаа: " + err,
+            });
+          } else {
+            return res.json({
+              success: true,
+              message: "Амжилттай даатгал хийгдлээ.",
+            });
           }
         });
       } else {

@@ -260,4 +260,24 @@ module.exports = {
       }
     );
   },
+  getChooseList: (callback) => {
+    pool.query(`select * from insurance_choose;`, (error, results, fields) => {
+      if (error) {
+        return callback(error);
+      }
+      return callback(null, results);
+    });
+  },
+  setDaatgal: (chooseId, userId, callback) => {
+    pool.query(
+      `insert into daatgal (userid, chooseid) values (?, ?);`,
+      [userId, chooseId],
+      (error, results, fields) => {
+        if (error) {
+          return callback(error);
+        }
+        return callback(null);
+      }
+    );
+  },
 };
