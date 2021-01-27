@@ -528,7 +528,7 @@ module.exports = {
             console.log("code: ", code);
             sendMail(results2.email, code);
             const salt = genSaltSync(10);
-            const hashCode = hashSync(code, salt);
+            const hashCode = hashSync(code.toString(), salt);
             setCode(userid, hashCode, (err) => {
               if (err) {
                 return res.json({
