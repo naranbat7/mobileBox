@@ -262,9 +262,7 @@ module.exports = {
             : "1970/01/01 00:00:00";
           console.log("end date: ", endDate);
           if (
-            moment(results2.end_date).isBefore(
-              moment().format("YYYY-MM-DD hh:mm:ss")
-            )
+            moment(endDate).isBefore(moment().format("YYYY-MM-DD hh:mm:ss"))
           ) {
             getChooseList((err, results3) => {
               if (err) {
