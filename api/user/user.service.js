@@ -1,6 +1,7 @@
 const pool = require("../../config/database");
 
 const nodemailer = require("nodemailer");
+const smtpTransport = require("nodemailer-smtp-transport");
 
 module.exports = {
   addUser: (body, callback) => {
@@ -157,24 +158,31 @@ module.exports = {
     );
   },
   sendMail: async (email, code) => {
-    let transporter = nodemailer.createTransport("SMTP", {
-      service: "Gmail",
-      auth: {
-        user: "mobileboxmn@gmail.com", // generated ethereal user
-        pass: "zaya120$", // generated ethereal password
-      },
-    });
+    let transporter = nodemailer.createTransport(
+      smtpTransport({
+        service: `gmail`,
+        host: `smtp.gmail.com`,
+        auth: {
+          user: `mobileboxmn@gmail.com`,
+          pass: `zaya120$`,
+        },
+      })
+    );
 
-    // send mail with defined transport object
-    let info = await transporter.sendMail({
-      from: "mobileboxmn@gmail.com", // sender address
-      to: email, // list of receivers
-      subject: "Mobile Box: Нууц код", // Subject line
-      text: "Нууц код: ", // plain text body
-      html: `<b>${code}</b>`, // html body
-    });
+    const mailOptions = {
+      from: `mobileboxmn@gmail.com`,
+      to: email,
+      subject: `Mobile Box Нууц Код`,
+      html: `<b>${code}</b>`,
+    };
 
-    console.log("Message sent: %s", info.messageId);
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(`Email sent: ` + info.response);
+      }
+    });
   },
   setCode: (id, code, callback) => {
     pool.query(
