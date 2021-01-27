@@ -256,10 +256,10 @@ module.exports = {
           });
         } else {
           if (
+            !results2.end_date ||
             moment(results2.end_date).isBefore(
               moment().format("YYYY-MM-DD hh:mm:ss")
-            ) ||
-            !results2.end_date
+            )
           ) {
             getChooseList((err, results3) => {
               if (err) {
