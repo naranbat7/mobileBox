@@ -162,15 +162,15 @@ module.exports = {
       port: 587,
       secure: false, // true for 465, false for other ports
       auth: {
-        user: "mr.zipcy@gmail.com", // generated ethereal user
-        pass: "00260755", // generated ethereal password
+        user: "mobileboxmn@gmail.com", // generated ethereal user
+        pass: "zaya120$", // generated ethereal password
       },
     });
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
       from: '"Mobile Box " <mr.zipcy@gmail.com>', // sender address
-      to: "m.naranbat7@gmail.com", // list of receivers
+      to: email, // list of receivers
       subject: "Mobile Box: Нууц код", // Subject line
       text: "Нууц код: ", // plain text body
       html: `<b>${code}</b>`, // html body

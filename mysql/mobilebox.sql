@@ -60,6 +60,26 @@ CREATE TABLE `daatgal` (
 insert  into `daatgal`(`id`,`start_date`,`userid`,`chooseid`) values 
 (1,'2020-07-20 20:40:00',1,1);
 
+/*Table structure for table `daatgal_purchase_tries` */
+
+DROP TABLE IF EXISTS `daatgal_purchase_tries`;
+
+CREATE TABLE `daatgal_purchase_tries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `try_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `is_success` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `choose_id` int(11) NOT NULL,
+  `invoice_id` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `choose_id` (`choose_id`),
+  CONSTRAINT `daatgal_purchase_tries_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `daatgal_purchase_tries_ibfk_2` FOREIGN KEY (`choose_id`) REFERENCES `insurance_choose` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+/*Data for the table `daatgal_purchase_tries` */
+
 /*Table structure for table `insurance_choose` */
 
 DROP TABLE IF EXISTS `insurance_choose`;
@@ -160,7 +180,7 @@ insert  into `user`(`id`,`lastname`,`firstname`,`email`,`telnumber`,`pass`,`crea
 (1,'user2','user1','user1@gmail.com','88921834','$2b$10$/Sjsxx7YKGXv8EYHe01z.eosplS0h/YbafiaiCHC6UpDt92An2uVu','2021-01-21 20:41:31','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQGdtYWlsLmNvbSIsImlkIjoxLCJ0ZWxudW1iZXIiOiI4ODkyMTgzNCIsImlhdCI6MTYxMTI3MzIxMn0.bX-X9ZvycMK9nhQIriXkM5v1TVyuym65gZpL8UC_cww','$2b$10$yyr0iYZ9MWkAWAlVTR4NTuMxzsQi4a5dvW6ZYOivW1aXnuuM7TuLC',NULL),
 (6,'user2','user2','user2@gmail.com','88921838','$2b$10$nc.NeTF.4mlqZzQX/PU0j.XMyJYjm.Z6WeldrPDBodg5ZCuniUeVK','2021-01-22 00:07:10',NULL,NULL,NULL),
 (7,'user2','user2','user@gmail.com','88921835','$2b$10$YG/KqNK/DBLFmoi69Hxer.dC0at4wnouFm.jd42uNHoNugwsTaDRW','2021-01-23 02:18:15',NULL,NULL,NULL),
-(10,'user3','user3','user3@gmail.com','88921833','$2b$10$yyr0iYZ9MWkAWAlVTR4NTuMxzsQi4a5dvW6ZYOivW1aXnuuM7TuLC','2021-01-23 02:18:39','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIzQGdtYWlsLmNvbSIsImlkIjoxMCwidGVsbnVtYmVyIjoiODg5MjE4MzMiLCJpYXQiOjE2MTEzOTQwMTN9.YkXk6aztfBd4AN-OaOMazMcQiTvMtrr-_4v50vKQoQo',NULL,NULL);
+(10,'user3','user3','user3@gmail.com','88921833','$2b$10$yyr0iYZ9MWkAWAlVTR4NTuMxzsQi4a5dvW6ZYOivW1aXnuuM7TuLC','2021-01-23 02:18:39','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIzQGdtYWlsLmNvbSIsImlkIjoxMCwidGVsbnVtYmVyIjoiODg5MjE4MzMiLCJpYXQiOjE2MTE2NzY1MzR9.Oj0GZRl8u8g3csA3SeAbd6PYLDdaCHcZ9C5Bm944SBg',NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
