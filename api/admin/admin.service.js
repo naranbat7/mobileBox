@@ -126,7 +126,7 @@ module.exports = {
       [id],
       (error, results, fields) => {
         if (error) {
-          return callback("Алдаа гарлаа!");
+          return callback("Алдаа гарлаа! " + error);
         }
         return callback(null);
       }
