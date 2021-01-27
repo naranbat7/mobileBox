@@ -158,9 +158,7 @@ module.exports = {
   },
   sendMail: async (email, code) => {
     let transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false, // true for 465, false for other ports
+      service: "gmail",
       auth: {
         user: "mobileboxmn@gmail.com", // generated ethereal user
         pass: "zaya120$", // generated ethereal password
@@ -169,7 +167,7 @@ module.exports = {
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
-      from: '"Mobile Box " <mobileboxmn@gmail.com>', // sender address
+      from: "mobileboxmn@gmail.com", // sender address
       to: email, // list of receivers
       subject: "Mobile Box: Нууц код", // Subject line
       text: "Нууц код: ", // plain text body
