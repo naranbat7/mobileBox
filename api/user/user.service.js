@@ -158,31 +158,34 @@ module.exports = {
     );
   },
   sendMail: async (email, code) => {
-    let transporter = nodemailer.createTransport(
-      smtpTransport({
-        service: `gmail`,
-        host: `smtp.gmail.com`,
-        auth: {
-          user: `m.naranbat7@gmail.com`,
-          pass: `00260755Na@`,
-        },
-      })
-    );
+    let testAccount = await nodemailer.createTestAccount();
 
-    const mailOptions = {
-      from: `m.naranbat7@gmail.com`,
-      to: email,
-      subject: `Mobile Box Нууц Код`,
-      html: `<b>${code}</b>`,
-    };
-
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(`Email sent: ` + info.response);
-      }
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: testAccount.user, // generated ethereal user
+        pass: testAccount.pass, // generated ethereal password
+      },
     });
+
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: '"Fred Foo 👻" <foo@example.com>', // sender address
+      to: email, // list of receivers
+      subject: "Hello ✔", // Subject line
+      text: "Hello world?", // plain text body
+      html: "<b>" + code + "</b>", // html body
+    });
+
+    console.log("Message sent: %s", info.messageId);
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+    // Preview only available when sending through an Ethereal account
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
   },
   setCode: (id, code, callback) => {
     pool.query(
