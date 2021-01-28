@@ -24,7 +24,7 @@ const random = require("random");
 
 const numberRegex = /[7-9][0-9]{7}/g;
 const emailRegex = /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const qpayLink = "https://merchant-sandbox.qpay.mn";
+const qpayLink = "https://merchant.qpay.mn";
 
 module.exports = {
   userReg: (req, res) => {
