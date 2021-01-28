@@ -332,8 +332,8 @@ module.exports = {
                 message: "Алдаа гарлаа 1: " + err,
               });
             } else {
-              const username = "TEST_MERCHANT";
-              const password = "123456";
+              const username = "MOBILE_ZONE";
+              const password = "CninTtZN";
 
               const token = Buffer.from(
                 `${username}:${password}`,
@@ -356,7 +356,7 @@ module.exports = {
                         "Content-Type": `application/json`,
                       },
                       data: {
-                        invoice_code: "TEST_INVOICE",
+                        invoice_code: "MZ_INVOICE",
                         sender_invoice_no: result.toString(),
                         invoice_receiver_code: userId.toString(),
                         invoice_description:
