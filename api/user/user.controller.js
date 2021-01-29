@@ -511,11 +511,13 @@ module.exports = {
             message: "Алдаа гарлаа: " + err,
           });
         } else {
+          const endDate = results2
+            ? results2.end_date
+              ? results2.end_date
+              : "1970/01/01 00:00:00"
+            : "1970/01/01 00:00:00";
           if (
-            moment(results2.end_date).isBefore(
-              moment().format("YYYY-MM-DD hh:mm:ss")
-            ) ||
-            !results2.end_date
+            moment(endDate).isBefore(moment().format("YYYY-MM-DD hh:mm:ss"))
           ) {
             return res.json({
               success: false,
