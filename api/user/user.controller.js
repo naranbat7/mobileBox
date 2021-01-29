@@ -25,6 +25,8 @@ const random = require("random");
 const numberRegex = /[7-9][0-9]{7}/g;
 const emailRegex = /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const qpayLink = "https://merchant.qpay.mn";
+const username = "MOBILE_ZONE";
+const password = "CninTtZN";
 
 module.exports = {
   userReg: (req, res) => {
@@ -332,9 +334,6 @@ module.exports = {
                 message: "Алдаа гарлаа 1: " + err,
               });
             } else {
-              const username = "MOBILE_ZONE";
-              const password = "CninTtZN";
-
               const token = Buffer.from(
                 `${username}:${password}`,
                 "utf8"
@@ -416,9 +415,6 @@ module.exports = {
           message: "Алдаа гарлаа: " + err,
         });
       } else {
-        const username = "TEST_MERCHANT";
-        const password = "123456";
-
         const token = Buffer.from(`${username}:${password}`, "utf8").toString(
           "base64"
         );
