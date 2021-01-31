@@ -622,7 +622,9 @@ module.exports = {
         });
       }
       const userid = results.id;
-      addLocation(body, userid, (err) => {
+      const location_x = parseFloat(body.location_x);
+      const location_y = parseFloat(body.location_y);
+      addLocation(location_x, location_y, userid, (err) => {
         if (err) {
           return res.json({
             success: false,

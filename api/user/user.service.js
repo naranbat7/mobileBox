@@ -192,10 +192,10 @@ module.exports = {
       }
     );
   },
-  addLocation: (body, id, callback) => {
+  addLocation: (location_x, location_y, id, callback) => {
     pool.query(
       `insert into location (location_x, location_y, userid) values (?, ?, ?);`,
-      [body.location_x, body.location_y, id],
+      [location_x, location_y, id],
       (error, results, fields) => {
         if (error) {
           return callback("Алдаа гарлаа!");
