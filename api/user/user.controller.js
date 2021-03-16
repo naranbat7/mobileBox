@@ -43,18 +43,21 @@ module.exports = {
       !body.telnumber ||
       !body.email
     ) {
+      console.log("Бүрэн гүйцэд бөглөнө үү.");
       return res.json({
         success: false,
         message: "Бүрэн гүйцэд бөглөнө үү.",
       });
     }
     if (!body.telnumber.match(numberRegex)) {
+      console.log("Утасны дугаарын формат буруу байна.");
       return res.json({
         success: false,
         message: "Утасны дугаарын формат буруу байна.",
       });
     }
     if (!body.email.match(emailRegex)) {
+      console.log("И-мэйлийн формат буруу байна.");
       return res.json({
         success: false,
         message: "И-мэйлийн формат буруу байна.",
@@ -64,12 +67,13 @@ module.exports = {
     body.password = hashSync(body.password, salt);
     addUser(body, (err, results) => {
       if (err) {
-        console.log(err);
+        console.log("Алдаа: " + err);
         return res.json({
           success: false,
           message: err,
         });
       } else {
+        console.log("Амжилттай нэмлээ.");
         return res.json({
           success: true,
           message: "Амжилттай нэмлээ.",
@@ -85,6 +89,7 @@ module.exports = {
       !body.password ||
       !body.email
     ) {
+      console.log("Бүрэн гүйцэд бөглөнө үү.");
       return res.json({
         success: false,
         message: "Бүрэн гүйцэд бөглөнө үү.",
@@ -93,6 +98,7 @@ module.exports = {
     getUserByEmail(body.email, (err, results) => {
       if (err) console.log(err);
       if (!results) {
+        console.log("И-мэйл эсвэл нууц үг буруу байна.");
         return res.json({
           success: false,
           message: "И-мэйл эсвэл нууц үг буруу байна.",
@@ -111,6 +117,7 @@ module.exports = {
         setUserByToken(jsonToken, results.id, (err, results) => {
           if (err) {
             console.log(err);
+            console.log("Алдаа: " + err);
             return res.json({
               success: false,
               message: "Алдаа гарлаа",
@@ -130,6 +137,7 @@ module.exports = {
           token: jsonToken,
         });
       } else {
+        console.log("И-мэйл эсвэл нууц үг буруу байна.");
         return res.json({
           success: false,
           message: "И-мэйл эсвэл нууц үг буруу байна.",
@@ -140,6 +148,7 @@ module.exports = {
   productListMini: (req, res) => {
     const token = req.get("authorization");
     if (!token) {
+      console.log("Нэвтрэх шаардлагатай!");
       return res.json({
         success: false,
         message: "Нэвтрэх шаардлагатай!",
@@ -155,6 +164,7 @@ module.exports = {
       }
       getProductListMini((err, results) => {
         if (err) {
+          console.log("Алдаа гарлаа: " + err);
           return res.json({
             success: false,
             message: "Алдаа гарлаа: " + err,
@@ -203,6 +213,7 @@ module.exports = {
       }
       getProductList((err, results) => {
         if (err) {
+          console.log("Алдаа гарлаа: " + err);
           return res.json({
             success: false,
             message: "Алдаа гарлаа: " + err,
@@ -252,6 +263,7 @@ module.exports = {
       const userid = results.id;
       checkDaatgal(userid, (err, results2) => {
         if (err) {
+          console.log("Алдаа гарлаа: " + err);
           return res.json({
             success: false,
             message: "Алдаа гарлаа: " + err,
@@ -268,6 +280,7 @@ module.exports = {
           ) {
             getChooseList((err, results3) => {
               if (err) {
+                console.log("Алдаа гарлаа: " + err);
                 return res.json({
                   success: false,
                   message: "Алдаа гарлаа: " + err,
@@ -283,6 +296,7 @@ module.exports = {
           } else {
             getUserLocationList(userid, (err, results4) => {
               if (err) {
+                console.log("Алдаа гарлаа: " + err);
                 return res.json({
                   success: false,
                   message: "Алдаа гарлаа: " + err,
@@ -319,7 +333,7 @@ module.exports = {
       }
       getPaymentAmount(chooseid, (err, amount) => {
         if (err) {
-          console.log(err);
+          console.log("Алдаа гарлаа: " + err);
           return res.json({
             success: false,
             message: "Алдаа гарлаа: " + err,
@@ -328,7 +342,7 @@ module.exports = {
           const userId = results.id;
           paymentTry(results.id, chooseid, (err, result) => {
             if (err) {
-              console.log(err);
+              console.log("Алдаа гарлаа: " + err);
               return res.json({
                 success: false,
                 message: "Алдаа гарлаа 1: " + err,
@@ -371,6 +385,7 @@ module.exports = {
                           response.data.invoice_id,
                           (err) => {
                             if (err) {
+                              console.log("Алдаа гарлаа: " + err);
                               return res.json({
                                 success: false,
                                 message: "Алдаа гарлаа: " + err,
@@ -385,6 +400,7 @@ module.exports = {
                         );
                       })
                       .catch((err) => {
+                        console.log("Алдаа гарлаа 2: " + err);
                         return res.json({
                           success: false,
                           message: "Алдаа гарлаа 2: " + err,
@@ -395,6 +411,7 @@ module.exports = {
                   }
                 })
                 .catch((err) => {
+                  console.log("Алдаа гарлаа 3: " + err);
                   return res.json({
                     success: false,
                     message: "Алдаа гарлаа 3: " + err,
@@ -410,6 +427,7 @@ module.exports = {
     const paymentId = req.params.id;
     paymentCallback(paymentId, (err, results) => {
       if (err) {
+        console.log("Алдаа гарлаа: " + err);
         return res.json({
           success: false,
           message: "Алдаа гарлаа: " + err,
@@ -454,6 +472,7 @@ module.exports = {
                       results.choose_id,
                       (err) => {
                         if (err) {
+                          console.log("Алдаа гарлаа 5: " + err);
                           return res.json({
                             success: false,
                             message: "Алдаа гарлаа 5: " + err,
@@ -469,6 +488,7 @@ module.exports = {
                   }
                 })
                 .catch((err) => {
+                  console.log("Алдаа гарлаа 2: " + err);
                   return res.json({
                     success: false,
                     message: "Алдаа гарлаа 2: " + err,
@@ -479,6 +499,7 @@ module.exports = {
             }
           })
           .catch((err) => {
+            console.log("Алдаа гарлаа 3: " + err);
             return res.json({
               success: false,
               message: "Алдаа гарлаа 3: " + err,
@@ -506,6 +527,7 @@ module.exports = {
       const userid = results.id;
       checkDaatgal(userid, (err, results2) => {
         if (err) {
+          console.log("Алдаа гарлаа: " + err);
           return res.json({
             success: false,
             message: "Алдаа гарлаа: " + err,
@@ -532,6 +554,7 @@ module.exports = {
             const hashCode = hashSync(code.toString(), salt);
             setCode(userid, hashCode, (err) => {
               if (err) {
+                console.log("Алдаа гарлаа 6: " + err);
                 return res.json({
                   success: false,
                   message: "Алдаа гарлаа 6: " + err,
@@ -580,6 +603,7 @@ module.exports = {
       const hashCode = hashSync(code.toString(), salt);
       setCode(userid, hashCode, (err) => {
         if (err) {
+          console.log("Алдаа гарлаа: " + err);
           return res.json({
             success: false,
             message: "Алдаа гарлаа: " + err,
@@ -626,6 +650,7 @@ module.exports = {
       const location_y = parseFloat(body.location_y);
       addLocation(location_x, location_y, userid, (err) => {
         if (err) {
+          console.log("Алдаа гарлаа: " + err);
           return res.json({
             success: false,
             message: "Алдаа гарлаа: " + err,
