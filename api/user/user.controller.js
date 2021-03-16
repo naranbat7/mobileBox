@@ -425,6 +425,7 @@ module.exports = {
   },
   paymentCallback: (req, res) => {
     const paymentId = req.params.id;
+    console.log("Payment callback: " + paymentId);
     paymentCallback(paymentId, (err, results) => {
       if (err) {
         console.log("Алдаа гарлаа: " + err);
@@ -466,6 +467,7 @@ module.exports = {
                     "Payment Status: " + response.data.rows[0].payment_status
                   );
                   if (response.data.rows[0].payment_status == "PAID") {
+                    console.log("Daatgal start");
                     startDaatgal(
                       results.id,
                       results.user_id,
@@ -478,6 +480,7 @@ module.exports = {
                             message: "Алдаа гарлаа 5: " + err,
                           });
                         } else {
+                          console.log("Амжилттай даатгагдлаа.");
                           return res.json({
                             success: true,
                             message: "Амжилттай даатгагдлаа.",
