@@ -134,8 +134,7 @@ module.exports = {
   },
   startDaatgal: (id, userId, chooseId, callback) => {
     pool.query(
-      `update daatgal_purchase_tries set is_success = 1 where id = ?;
-       insert into daatgal (userid, chooseid) values (?, ?);`,
+      `insert into daatgal (userid, chooseid) values (?, ?);`,
       [id, userId, chooseId],
       (error, results, fields) => {
         if (error) {
