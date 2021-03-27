@@ -95,7 +95,7 @@ CREATE TABLE `insurance_choose` (
 
 insert  into `insurance_choose`(`id`,`duration`,`price`) values 
 (1,12,10000),
-(2,12,25000);
+(2,36,25000);
 
 /*Table structure for table `location` */
 

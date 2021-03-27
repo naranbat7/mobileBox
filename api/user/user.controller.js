@@ -434,80 +434,21 @@ module.exports = {
           message: "Алдаа гарлаа: " + err,
         });
       } else {
-        const token = Buffer.from(`${username}:${password}`, "utf8").toString(
-          "base64"
-        );
-        axios({
-          method: `POST`,
-          url: `${qpayLink}/v2/auth/token`,
-          headers: {
-            Authorization: `Basic ${token}`,
-          },
-        })
-          .then((response) => {
-            if (response.data.access_token) {
-              axios({
-                method: `POST`,
-                url: `${qpayLink}/v2/payment/check`,
-                headers: {
-                  Authorization: `Bearer ${response.data.access_token}`,
-                  "Content-Type": `application/json`,
-                },
-                data: {
-                  object_type: "INVOICE",
-                  object_id: results.invoice_id.toString(),
-                  offset: {
-                    page_number: 1,
-                    page_limit: 100,
-                  },
-                },
-              })
-                .then((response) => {
-                  console.log(
-                    "Payment Status: " + response.data.rows[0].payment_status
-                  );
-                  if (response.data.rows[0].payment_status == "PAID") {
-                    console.log("Daatgal start");
-                    startDaatgal(
-                      results.id,
-                      results.user_id,
-                      results.choose_id,
-                      (err) => {
-                        if (err) {
-                          console.log("Алдаа гарлаа 5: " + err);
-                          return res.json({
-                            success: false,
-                            message: "Алдаа гарлаа 5: " + err,
-                          });
-                        } else {
-                          console.log("Амжилттай даатгагдлаа.");
-                          return res.json({
-                            success: true,
-                            message: "Амжилттай даатгагдлаа.",
-                          });
-                        }
-                      }
-                    );
-                  }
-                })
-                .catch((err) => {
-                  console.log("Алдаа гарлаа 2: " + err);
-                  return res.json({
-                    success: false,
-                    message: "Алдаа гарлаа 2: " + err,
-                  });
-                });
-            } else {
-              console.log(response.data);
-            }
-          })
-          .catch((err) => {
-            console.log("Алдаа гарлаа 3: " + err);
+        startDaatgal(results.id, results.user_id, results.choose_id, (err) => {
+          if (err) {
+            console.log("Алдаа гарлаа 5: " + err);
             return res.json({
               success: false,
-              message: "Алдаа гарлаа 3: " + err,
+              message: "Алдаа гарлаа 5: " + err,
             });
-          });
+          } else {
+            console.log("Амжилттай даатгагдлаа.");
+            return res.json({
+              success: true,
+              message: "Амжилттай даатгагдлаа.",
+            });
+          }
+        });
       }
     });
   },
