@@ -15,6 +15,7 @@ const {
   setCode,
   addLocation,
   getUserLocationList,
+  startDaatgal,
 } = require("./user.service");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
