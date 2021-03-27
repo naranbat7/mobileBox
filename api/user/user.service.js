@@ -135,7 +135,7 @@ module.exports = {
   startDaatgal: (id, userId, chooseId, callback) => {
     pool.query(
       `insert into daatgal (userid, chooseid) values (?, ?);`,
-      [id, userId, chooseId],
+      [userId, chooseId],
       (error, results, fields) => {
         if (error) {
           return callback(error);
